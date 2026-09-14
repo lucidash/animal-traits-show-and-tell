@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animal Traits | What Is a Perfect Pet Like?</title>
+<style>
+  :root {
+    --ink: #20303c;
+    --muted: #5f7280;
+    --coral: #ef6f61;
+    --blue: #3187b7;
+    --yellow: #f4bf45;
+    --green: #4f9c78;
+    --cream: #fffaf0;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden;
+    font-family: "Trebuchet MS", "Arial Rounded MT Bold", sans-serif;
+    color: var(--ink);
+  }
+
+  .slide {
+    display: none;
+    position: relative;
+    width: 100vw; height: 100vh;
+    padding: clamp(54px, 6vh, 76px) clamp(42px, 6vw, 90px) 88px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+  .slide::before,
+  .slide::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.28;
+    pointer-events: none;
+  }
+  .slide::before { width: 280px; height: 280px; top: -130px; left: -100px; background: #fff; }
+  .slide::after { width: 220px; height: 220px; right: -90px; bottom: -90px; background: #fff; }
+
+  .slide-num {
+    position: absolute; top: 20px; right: 30px;
+    font-size: 1.05rem; color: rgba(32,48,60,.48); font-weight: 800;
+  }
+  .hint {
+    position: fixed; top: 20px; left: 30px; z-index: 50;
+    color: rgba(32,48,60,.52); font-size: .92rem; font-weight: 700;
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-bottom: 12px; padding: 7px 16px;
+    border-radius: 999px; background: rgba(255,255,255,.78);
+    color: var(--blue); font-size: 1rem; font-weight: 900;
+    letter-spacing: .08em; text-transform: uppercase;
+  }
+  h1 { line-height: 1.08; }
+  .accent { color: var(--coral); }
+  .blue { color: var(--blue); }
+  .green { color: var(--green); }
+  .yellow { color: #ad7510; }
+  .arrow { color: var(--coral); font-weight: 900; }
+  .footer-line {
+    margin-top: 24px; font-size: clamp(1.35rem, 2.1vw, 2rem); font-weight: 800;
+  }
+
+  .photo {
+    display: block; object-fit: cover; background: white;
+    border: 7px solid white; border-radius: 26px;
+    box-shadow: 0 14px 34px rgba(32,48,60,.22);
+  }
+  .round-photo { border-radius: 50%; }
+  .content { position: relative; z-index: 2; width: min(1180px, 100%); }
+
+  /* 1. Title */
+  #slide-1 { background: linear-gradient(135deg, #fff1d9 0%, #ffd7c8 48%, #c8e8f5 100%); }
+  #slide-1 .title-layout {
+    display: grid; grid-template-columns: 1.12fr .88fr; align-items: center;
+    gap: clamp(28px, 5vw, 72px); text-align: left;
+  }
+  #slide-1 h1 { font-size: clamp(4rem, 7.2vw, 7rem); color: #216282; }
+  #slide-1 .question { margin-top: 22px; font-size: clamp(1.8rem, 3vw, 3rem); line-height: 1.25; font-weight: 900; }
+  #slide-1 .sub { margin-top: 18px; color: var(--muted); font-size: 1.35rem; font-weight: 700; }
+  #slide-1 .hero-wrap {
+    position: relative; width: min(40vw, 500px); height: min(38vw, 460px);
+  }
+  #slide-1 .hero-photo {
+    position: absolute; width: min(23vw, 285px); height: min(29vw, 350px);
+    border-radius: 42px;
+  }
+  #slide-1 .hero-dog { left: 8px; top: 0; object-position: center 20%; transform: rotate(-4deg); }
+  #slide-1 .hero-cat { right: 8px; bottom: 0; object-position: center 25%; transform: rotate(4deg); }
+  #slide-1 .paw { position: absolute; font-size: 4rem; filter: drop-shadow(0 5px 8px rgba(0,0,0,.12)); }
+  #slide-1 .paw-a { left: -10px; top: 4px; transform: rotate(-18deg); }
+  #slide-1 .paw-b { right: -12px; bottom: 10px; transform: rotate(18deg); }
+
+  /* 2. Grandma's pets */
+  #slide-2 { background: linear-gradient(135deg, #dff3fb 0%, #e8f7ef 100%); }
+  #slide-2 h1 { font-size: clamp(3rem, 5vw, 4.8rem); color: #216282; margin-bottom: 24px; }
+  .meet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; }
+  .meet-card {
+    position: relative; overflow: hidden; height: min(48vh, 430px);
+    border: 7px solid white; border-radius: 28px; background: white;
+    box-shadow: 0 12px 28px rgba(32,48,60,.18);
+  }
+  .meet-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .meet-card.dog img { object-position: center 20%; }
+  .meet-card.cat img { object-position: center 78%; }
+  .meet-label {
+    position: absolute; left: 18px; right: 18px; bottom: 16px;
+    padding: 12px 16px; border-radius: 18px;
+    background: rgba(255,255,255,.9); font-size: 1.9rem; font-weight: 900;
+    box-shadow: 0 5px 16px rgba(32,48,60,.14);
+  }
+
+  /* 3. What is a trait? */
+  .trait-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; }
+  .trait-card {
+    background: rgba(255,255,255,.9); border-radius: 28px; padding: 28px 30px;
+    box-shadow: 0 12px 28px rgba(32,48,60,.13); min-height: 330px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .trait-card .icon { font-size: 5rem; margin-bottom: 8px; }
+  .trait-card h2 { font-size: 2.3rem; color: var(--blue); margin-bottom: 12px; }
+  .trait-card p { font-size: 1.55rem; line-height: 1.5; font-weight: 800; color: var(--muted); }
+  .trait-card.looks { border-bottom: 8px solid var(--yellow); }
+  .trait-card.acts { border-bottom: 8px solid var(--coral); }
+
+  /* 3. What is a trait? */
+  #slide-3 { background: linear-gradient(135deg, #fff8d7 0%, #ffe2b8 100%); }
+  #slide-3 h1 { font-size: clamp(3rem, 5vw, 4.6rem); color: #9a6508; margin-bottom: 28px; }
+  .pet-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .pet-card {
+    background: white; border-radius: 24px; padding: 22px 16px;
+    box-shadow: 0 10px 24px rgba(75,55,20,.13);
+  }
+  .pet-card .emoji { font-size: 4.7rem; }
+  .pet-card .name { margin-top: 8px; font-size: 1.6rem; font-weight: 900; }
+  .pet-card .word { margin-top: 6px; font-size: 1.25rem; color: var(--muted); font-weight: 800; }
+  .pet-card.choice { outline: 8px solid rgba(239,111,97,.28); transform: translateY(-7px); }
+  #slide-3 .pick { margin-top: 30px; font-size: 2.15rem; color: #704b0a; font-weight: 900; }
+
+  /* 4. Body traits */
+  #slide-4 { background: linear-gradient(135deg, #ffeadf 0%, #ffd5cd 100%); }
+  #slide-4 h1 { font-size: clamp(2.8rem, 4.7vw, 4.5rem); color: #b84d45; margin-bottom: 22px; }
+  .body-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 42px; align-items: center; }
+  #slide-4 .dog-full { width: 100%; height: min(52vh, 470px); object-position: center 47%; }
+  .callouts { display: grid; gap: 18px; }
+  .callout {
+    display: flex; align-items: center; gap: 18px; text-align: left;
+    background: rgba(255,255,255,.92); border-radius: 22px; padding: 18px 24px;
+    box-shadow: 0 8px 20px rgba(88,45,40,.12); font-size: 1.75rem; font-weight: 900;
+  }
+  .callout .emoji { font-size: 3rem; min-width: 58px; text-align: center; }
+
+  /* 5. Dog behavior */
+  #slide-5 { background: linear-gradient(135deg, #d9f5e7 0%, #bfe7d0 100%); }
+  #slide-5 h1 { font-size: clamp(3rem, 5vw, 4.6rem); color: #2f805c; margin-bottom: 22px; }
+  .behavior-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  .behavior-card {
+    position: relative; overflow: hidden; height: min(49vh, 450px);
+    border: 7px solid white; border-radius: 27px; background: white;
+    box-shadow: 0 12px 28px rgba(35,95,67,.16);
+  }
+  .behavior-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .behavior-card.friend img { object-position: center 36%; }
+  .behavior-card.active img { object-position: center 45%; }
+  .behavior-label {
+    position: absolute; left: 18px; right: 18px; bottom: 16px;
+    padding: 12px; border-radius: 17px; background: rgba(255,255,255,.92);
+    color: var(--green); font-size: 1.65rem; font-weight: 900;
+  }
+  .image-copy { display: grid; grid-template-columns: 1.08fr .92fr; gap: 42px; align-items: center; }
+  #slide-5 .kind-photo { width: 100%; height: min(52vh, 480px); object-position: center; }
+  .word-stack { display: grid; gap: 20px; }
+  .big-word {
+    background: white; border-radius: 25px; padding: 23px 20px;
+    box-shadow: 0 9px 22px rgba(35,95,67,.13);
+  }
+  .big-word h2 { font-size: 2.45rem; color: var(--green); }
+  .big-word p { margin-top: 7px; font-size: 1.35rem; color: var(--muted); font-weight: 800; }
+
+  /* 6. Cat traits */
+  #slide-6 { background: linear-gradient(135deg, #dceeff 0%, #cbd9ff 100%); }
+  #slide-6 h1 { font-size: clamp(3rem, 5vw, 4.6rem); color: #3769a6; margin-bottom: 22px; }
+  .cat-photo-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .cat-photo-pair .photo { width: 100%; height: min(50vh, 450px); }
+  .cat-photo-pair .portrait { object-position: center 20%; }
+  .cat-photo-pair .curious { object-position: center; }
+  #slide-6 .play-photo { width: 100%; height: min(52vh, 480px); object-position: center 42%; }
+  #slide-6 .big-word h2 { color: #3769a6; }
+  #slide-6 .big-word { box-shadow: 0 9px 22px rgba(45,74,120,.13); }
+
+  /* 7. Care */
+  #slide-7 { background: linear-gradient(135deg, #f4e5ff 0%, #e2d0f7 100%); }
+  #slide-7 h1 { font-size: clamp(3rem, 5vw, 4.5rem); color: #76549b; margin-bottom: 28px; }
+  .care-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .care-card {
+    background: rgba(255,255,255,.94); border-radius: 26px; padding: 26px 15px;
+    box-shadow: 0 10px 25px rgba(71,45,96,.13);
+  }
+  .care-card .emoji { font-size: 4.7rem; margin-bottom: 10px; }
+  .care-card h2 { font-size: 1.65rem; color: #76549b; }
+  .care-card p { margin-top: 8px; font-size: 1.15rem; color: var(--muted); font-weight: 800; line-height: 1.35; }
+  #slide-7 .love-line { margin-top: 28px; font-size: 2rem; color: #65418a; font-weight: 900; }
+
+  /* 8. Essential answer */
+  #slide-8 { background: linear-gradient(135deg, #fff6cc 0%, #ffd9c7 100%); }
+  #slide-8 h1 { font-size: clamp(2.7rem, 4.6vw, 4.4rem); color: #9b5f10; margin-bottom: 28px; }
+  .answer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .answer-card {
+    background: white; border-radius: 50%; aspect-ratio: 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    box-shadow: 0 10px 24px rgba(100,60,20,.14); padding: 16px;
+  }
+  .answer-card .emoji { font-size: 3.7rem; }
+  .answer-card .word { margin-top: 8px; font-size: clamp(1.25rem, 2vw, 1.8rem); font-weight: 900; color: #7d4c0c; }
+  #slide-8 .answer {
+    margin: 28px auto 0; padding: 16px 26px; max-width: 850px;
+    border-radius: 20px; background: rgba(255,255,255,.72);
+    font-size: clamp(1.45rem, 2.3vw, 2.2rem); font-weight: 900; color: #6f450d;
+  }
+
+  /* 9. Thank you */
+  #slide-9 { background: linear-gradient(135deg, #ffd5cc 0%, #ffc6d9 52%, #c9e9f4 100%); }
+  #slide-9 h1 { font-size: clamp(5rem, 9vw, 8.5rem); color: #b8495f; }
+  #slide-9 .pet-question { margin-top: 20px; font-size: clamp(1.7rem, 3vw, 2.7rem); font-weight: 900; }
+  #slide-9 .emojis { margin-top: 24px; font-size: clamp(4rem, 7vw, 6.5rem); letter-spacing: .12em; }
+
+  /* Navigation */
+  .nav {
+    position: fixed; z-index: 100; bottom: 18px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 18px;
+    padding: 9px 18px; border-radius: 999px;
+    color: white; background: rgba(25,38,48,.78); backdrop-filter: blur(8px);
+  }
+  .nav button {
+    width: 40px; height: 40px; border: none; border-radius: 50%;
+    background: white; color: var(--ink); font-size: 1.35rem; font-weight: 900; cursor: pointer;
+  }
+  .nav button:hover { background: #ffe38f; }
+  .nav button:focus-visible { outline: 4px solid #ffe38f; outline-offset: 2px; }
+  .indicator { min-width: 52px; font-weight: 900; }
+
+  @media (max-width: 860px) {
+    .slide { padding-left: 28px; padding-right: 28px; }
+    #slide-1 .title-layout, .body-layout, .image-copy { grid-template-columns: 1fr; gap: 20px; }
+    #slide-1 .title-layout { text-align: center; }
+    #slide-1 .hero-wrap { width: 340px; height: 260px; margin: 0 auto; }
+    #slide-1 .hero-photo { width: 180px; height: 220px; }
+    .meet-card { height: 300px; }
+    .pet-row, .care-grid, .answer-grid { grid-template-columns: repeat(2, 1fr); }
+    .trait-card { min-height: 260px; }
+    #slide-4 .dog-full, #slide-5 .kind-photo, #slide-6 .play-photo { height: 280px; }
+    .callouts { grid-template-columns: repeat(3, 1fr); }
+    .callout { flex-direction: column; text-align: center; font-size: 1.25rem; padding: 12px; gap: 5px; }
+    .word-stack { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-height: 720px) and (min-width: 861px) {
+    .slide { padding-top: 42px; padding-bottom: 70px; }
+    #slide-1 .hero-wrap { height: 350px; }
+    #slide-1 .hero-photo { width: 225px; height: 280px; }
+    .meet-card { height: 330px; }
+    .trait-card { min-height: 270px; padding: 18px; }
+    #slide-4 .dog-full, #slide-5 .kind-photo, #slide-6 .play-photo { height: 390px; }
+    .care-card { padding: 18px 12px; }
+    .care-card .emoji { font-size: 3.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hint">← → 키로 슬라이드 이동</div>
+
+<!-- Slide 1: Title -->
+<section class="slide active" id="slide-1">
+  <div class="slide-num">1 / 9</div>
+  <div class="content title-layout">
+    <div>
+      <div class="kicker">Show and Tell · SL2</div>
+      <h1>Animal<br><span class="accent">Traits</span></h1>
+      <div class="question">What is a <span class="accent">perfect pet</span> like?</div>
+      <div class="sub">Meet the pets at Grandma’s house!</div>
+    </div>
+    <div class="hero-wrap">
+      <img class="photo hero-photo hero-dog" src="images/dog-portrait.jpg" alt="My grandma's white dog">
+      <img class="photo hero-photo hero-cat" src="images/cat-portrait.jpg" alt="My grandma's black-and-white cat">
+      <span class="paw paw-a">🐾</span>
+      <span class="paw paw-b">🐾</span>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 2: Grandma's pets -->
+<section class="slide" id="slide-2">
+  <div class="slide-num">2 / 9</div>
+  <div class="content">
+    <div class="kicker">My animal friends</div>
+    <h1>At my <span class="accent">Grandma’s house</span>...</h1>
+    <div class="meet-grid">
+      <div class="meet-card dog">
+        <img src="images/dog-portrait.jpg" alt="My grandma's white dog sitting on a sofa">
+        <div class="meet-label">one dog 🐶</div>
+      </div>
+      <div class="meet-card cat">
+        <img src="images/cat-portrait.jpg" alt="My grandma's black-and-white cat looking up">
+        <div class="meet-label">one cat 🐱</div>
+      </div>
+    </div>
+    <div class="footer-line">They are different, and they are both <span class="accent">special</span>!</div>
+  </div>
+</section>
+
+<!-- Slide 3: What is a trait? -->
+<section class="slide" id="slide-3">
+  <div class="slide-num">3 / 9</div>
+  <div class="content">
+    <div class="kicker">New word</div>
+    <h1>What is a <span class="accent">trait</span>?</h1>
+    <div class="trait-grid">
+      <div class="trait-card looks">
+        <div class="icon">👀</div>
+        <h2>How it LOOKS</h2>
+        <p>fur · ears · eyes<br>tail</p>
+      </div>
+      <div class="trait-card acts">
+        <div class="icon">💛</div>
+        <h2>How it ACTS</h2>
+        <p>friendly · active<br>curious</p>
+      </div>
+    </div>
+    <div class="footer-line">A trait tells how an animal <span class="blue">looks</span> or <span class="accent">acts</span>.</div>
+  </div>
+</section>
+
+<!-- Slide 4: Body traits -->
+<section class="slide" id="slide-4">
+  <div class="slide-num">4 / 9</div>
+  <div class="content">
+    <div class="kicker">Body traits</div>
+    <h1>My grandma’s <span class="accent">dog</span> 🐶</h1>
+    <div class="body-layout">
+      <img class="photo dog-full" src="images/dog-outside.jpg" alt="My grandma's white dog standing outside">
+      <div class="callouts">
+        <div class="callout"><span class="emoji">✨</span><span>white, fluffy <span class="accent">fur</span></span></div>
+        <div class="callout"><span class="emoji">👂</span><span>pointed <span class="accent">ears</span></span></div>
+        <div class="callout"><span class="emoji">➰</span><span>a curly <span class="accent">tail</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 5: Dog behavior -->
+<section class="slide" id="slide-5">
+  <div class="slide-num">5 / 9</div>
+  <div class="content">
+    <div class="kicker">Behavior traits</div>
+    <h1>How does the dog <span class="green">act</span>?</h1>
+    <div class="behavior-photos">
+      <div class="behavior-card friend">
+        <img src="images/child-with-dog.jpg" alt="A child sitting next to the white dog">
+        <div class="behavior-label">friendly &amp; gentle 😊</div>
+      </div>
+      <div class="behavior-card active">
+        <img src="images/dog-walk.jpg" alt="The dog going for a walk with the family">
+        <div class="behavior-label">playful &amp; active 🐕</div>
+      </div>
+    </div>
+    <div class="footer-line">We sit together, play, and go for <span class="green">walks</span>!</div>
+  </div>
+</section>
+
+<!-- Slide 6: Cat traits -->
+<section class="slide" id="slide-6">
+  <div class="slide-num">6 / 9</div>
+  <div class="content">
+    <div class="kicker">Cat traits</div>
+    <h1>My grandma’s <span class="blue">cat</span> 🐱</h1>
+    <div class="body-layout">
+      <div class="cat-photo-pair">
+        <img class="photo portrait" src="images/cat-portrait.jpg" alt="The black-and-white cat looking up">
+        <img class="photo curious" src="images/cat-curious.jpg" alt="The curious cat standing on a chair">
+      </div>
+      <div class="callouts">
+        <div class="callout"><span class="emoji">⚫</span><span>black-and-white <span class="blue">fur</span></span></div>
+        <div class="callout"><span class="emoji">👀</span><span>bright <span class="blue">eyes</span></span></div>
+        <div class="callout"><span class="emoji">🪑</span><span><span class="blue">curious</span> climber</span></div>
+      </div>
+    </div>
+    <div class="footer-line">The cat likes to look around and <span class="blue">climb</span>!</div>
+  </div>
+</section>
+
+<!-- Slide 7: A perfect pet needs care -->
+<section class="slide" id="slide-7">
+  <div class="slide-num">7 / 9</div>
+  <div class="content">
+    <div class="kicker">My job</div>
+    <h1>A perfect pet needs <span class="accent">good care</span>!</h1>
+    <div class="care-grid">
+      <div class="care-card">
+        <div class="emoji">🥣</div>
+        <h2>Healthy food</h2>
+        <p>every day</p>
+      </div>
+      <div class="care-card">
+        <div class="emoji">💧</div>
+        <h2>Fresh water</h2>
+        <p>clean and full</p>
+      </div>
+      <div class="care-card">
+        <div class="emoji">🧶</div>
+        <h2>Playtime</h2>
+        <p>move and have fun</p>
+      </div>
+      <div class="care-card">
+        <div class="emoji">🛏️</div>
+        <h2>Clean bed</h2>
+        <p>safe and cozy</p>
+      </div>
+    </div>
+    <div class="love-line">Most of all, pets need <span class="accent">LOVE</span>! ❤️</div>
+  </div>
+</section>
+
+<!-- Slide 8: Essential question answer -->
+<section class="slide" id="slide-8">
+  <div class="slide-num">8 / 9</div>
+  <div class="content">
+    <div class="kicker">Essential question</div>
+    <h1>What is a <span class="accent">perfect pet</span> like?</h1>
+    <div class="answer-grid">
+      <div class="answer-card"><div class="emoji">😊</div><div class="word">Friendly</div></div>
+      <div class="answer-card"><div class="emoji">🤲</div><div class="word">Gentle</div></div>
+      <div class="answer-card"><div class="emoji">💪</div><div class="word">Healthy</div></div>
+      <div class="answer-card"><div class="emoji">❤️</div><div class="word">Loved</div></div>
+    </div>
+    <div class="answer">A perfect pet is a <span class="accent">loving family friend</span> — dog or cat! ❤️</div>
+  </div>
+</section>
+
+<!-- Slide 9: Thank you -->
+<section class="slide" id="slide-9">
+  <div class="slide-num">9 / 9</div>
+  <div class="content">
+    <h1>Thank you!</h1>
+    <div class="pet-question">What is <span class="accent">your</span> perfect pet like?</div>
+    <div class="emojis">🐶 🐾 🐱</div>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <button type="button" onclick="prevSlide()" aria-label="Previous slide">‹</button>
+  <span class="indicator" id="indicator" aria-live="polite">1 / 9</span>
+  <button type="button" onclick="nextSlide()" aria-label="Next slide">›</button>
+</nav>
+
+<script>
+  let currentSlide = 1;
+  const totalSlides = 9;
+
+  function showSlide(n) {
+    const next = Math.max(1, Math.min(totalSlides, n));
+    document.querySelectorAll('.slide').forEach((slide) => slide.classList.remove('active'));
+    document.getElementById('slide-' + next).classList.add('active');
+    document.getElementById('indicator').textContent = next + ' / ' + totalSlides;
+    currentSlide = next;
+  }
+
+  function nextSlide() { showSlide(currentSlide + 1); }
+  function prevSlide() { showSlide(currentSlide - 1); }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight' || event.key === ' ') {
+      event.preventDefault();
+      nextSlide();
+    } else if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      prevSlide();
+    } else if (/^[1-9]$/.test(event.key)) {
+      showSlide(Number(event.key));
+    } else if (event.key === 'Home') {
+      showSlide(1);
+    } else if (event.key === 'End') {
+      showSlide(totalSlides);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>큐 카드 | Animal Traits</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    padding: 30px 20px; background: #f5f3ee; color: #273844;
+    font-family: "Helvetica Neue", "Apple SD Gothic Neo", sans-serif;
+  }
+  .container { max-width: 1020px; margin: 0 auto; }
+  h1 { text-align: center; color: #276a89; font-size: 2.25rem; }
+  .subtitle { margin-top: 8px; text-align: center; color: #77858d; }
+  .print-tip { margin: 8px 0 28px; text-align: center; color: #3d8968; font-size: .94rem; font-style: italic; }
+  .cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .card {
+    position: relative; display: flex; flex-direction: column; justify-content: space-between;
+    aspect-ratio: 3 / 2; padding: 28px 25px; overflow: hidden;
+    background: white; border-radius: 16px; border-top: 8px solid #3187b7;
+    box-shadow: 0 6px 20px rgba(30,50,64,.1);
+  }
+  .card::after {
+    content: "🐾"; position: absolute; right: 14px; bottom: -14px;
+    color: rgba(49,135,183,.08); font-size: 5rem; transform: rotate(-15deg);
+  }
+  .card .num { position: absolute; top: 11px; right: 17px; color: #a7b0b5; font-size: .86rem; font-weight: 800; }
+  .card .title { color: #718089; font-size: 1.05rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .card .emoji { margin: 4px 0; text-align: center; font-size: 3.7rem; }
+  .keypoints { position: relative; z-index: 2; list-style: none; }
+  .keypoints li { padding: 3px 0; color: #273844; font-size: 1.38rem; font-weight: 800; }
+  .keypoints li::before { content: "▸ "; color: #ef6f61; }
+  .card-1 { border-top-color: #ef6f61; }
+  .card-2 { border-top-color: #3187b7; }
+  .card-3 { border-top-color: #f0b943; }
+  .card-4 { border-top-color: #ef6f61; }
+  .card-5 { border-top-color: #4f9c78; }
+  .card-6 { border-top-color: #4f79b2; }
+  .card-7 { border-top-color: #8b65ad; }
+  .card-8 { border-top-color: #df8a31; }
+  .card-9 { border-top-color: #c7546b; }
+  .quick-ref {
+    margin-top: 38px; padding: 28px; background: white; border-radius: 16px;
+    border-top: 8px solid #76549b; box-shadow: 0 6px 20px rgba(30,50,64,.1);
+  }
+  .quick-ref h2 { margin-bottom: 18px; text-align: center; color: #6a4b89; }
+  table { width: 100%; border-collapse: collapse; font-size: 1.15rem; }
+  th { padding: 12px; text-align: left; color: #62457e; background: #f2eafb; }
+  td { padding: 13px 12px; border-bottom: 1px solid #e8ecee; line-height: 1.4; }
+  td:first-child { width: 85px; text-align: center; font-size: 2.2rem; }
+  .looks { color: #2d79a0; font-weight: 800; }
+  .acts { color: #b65048; font-weight: 800; }
+  @media print {
+    body { padding: 8px; background: white; }
+    .card, .quick-ref { box-shadow: none; border-left: 1px solid #ddd; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; page-break-inside: avoid; }
+    .cards-grid { gap: 14px; }
+  }
+  @media (max-width: 700px) { .cards-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="container">
+
+<h1>🎴 큐 카드 (Cue Cards)</h1>
+<div class="subtitle">Animal Traits · What is a perfect pet like?</div>
+<div class="print-tip">💡 인쇄해서 손에 들고 사용하세요. 각 카드에는 문장 전체가 아닌 기억할 핵심만 있습니다.</div>
+
+<div class="cards-grid">
+  <section class="card card-1">
+    <div class="num">1 / 9</div>
+    <div class="title">Title + Hello</div>
+    <div class="emoji">🐶🐱</div>
+    <ul class="keypoints">
+      <li>Hello, everyone! 👋</li>
+      <li>Animal traits</li>
+      <li>Perfect pet?</li>
+      <li>Grandma’s house!</li>
+    </ul>
+  </section>
+
+  <section class="card card-2">
+    <div class="num">2 / 9</div>
+    <div class="title">At Grandma’s House</div>
+    <div class="emoji">🏠🐾</div>
+    <ul class="keypoints">
+      <li>One dog · one cat</li>
+      <li>White · black and white</li>
+      <li>Different but special!</li>
+    </ul>
+  </section>
+
+  <section class="card card-3">
+    <div class="num">3 / 9</div>
+    <div class="title">What Is a Trait?</div>
+    <ul class="keypoints">
+      <li>How it LOOKS 👀</li>
+      <li>How it ACTS 💛</li>
+      <li>Body traits</li>
+      <li>Behavior traits</li>
+    </ul>
+  </section>
+
+  <section class="card card-4">
+    <div class="num">4 / 9</div>
+    <div class="title">Grandma’s Dog · Looks</div>
+    <div class="emoji">🐶</div>
+    <ul class="keypoints">
+      <li>White, fluffy fur</li>
+      <li>Pointed ears</li>
+      <li>Curly tail</li>
+      <li>Body traits</li>
+    </ul>
+  </section>
+
+  <section class="card card-5">
+    <div class="num">5 / 9</div>
+    <div class="title">Grandma’s Dog · Acts</div>
+    <ul class="keypoints">
+      <li>Friendly · gentle</li>
+      <li>Sits with me</li>
+      <li>Playful · active</li>
+      <li>Play and walk!</li>
+    </ul>
+  </section>
+
+  <section class="card card-6">
+    <div class="num">6 / 9</div>
+    <div class="title">Grandma’s Cat</div>
+    <div class="emoji">🐱</div>
+    <ul class="keypoints">
+      <li>Black-and-white fur</li>
+      <li>Bright eyes</li>
+      <li>Curious</li>
+      <li>Looks around · climbs</li>
+    </ul>
+  </section>
+
+  <section class="card card-7">
+    <div class="num">7 / 9</div>
+    <div class="title">Good Care</div>
+    <ul class="keypoints">
+      <li>Healthy food 🥣</li>
+      <li>Fresh water 💧</li>
+      <li>Playtime · clean bed</li>
+      <li>Most of all, LOVE! ❤️</li>
+    </ul>
+  </section>
+
+  <section class="card card-8">
+    <div class="num">8 / 9</div>
+    <div class="title">Perfect Pet Answer</div>
+    <ul class="keypoints">
+      <li>Friendly · gentle</li>
+      <li>Healthy · loved</li>
+      <li>Dog OR cat</li>
+      <li>Loving family friend!</li>
+    </ul>
+  </section>
+
+  <section class="card card-9">
+    <div class="num">9 / 9</div>
+    <div class="title">Thank You</div>
+    <div class="emoji">🐶🐾🐱</div>
+    <ul class="keypoints">
+      <li>Your perfect pet?</li>
+      <li>Thank you! 🙇</li>
+      <li>Big smile 😊</li>
+    </ul>
+  </section>
+</div>
+
+<section class="quick-ref">
+  <h2>📋 한 장 요약 (Quick Reference)</h2>
+  <table>
+    <thead>
+      <tr><th></th><th>Animal</th><th>How it LOOKS</th><th>How it ACTS</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>🐶</td><td><strong>Dog</strong></td>
+        <td class="looks">white fluffy fur<br>pointed ears · curly tail</td>
+        <td class="acts">friendly · gentle<br>playful · active</td>
+      </tr>
+      <tr>
+        <td>🐱</td><td><strong>Cat</strong></td>
+        <td class="looks">black-and-white fur<br>bright eyes</td>
+        <td class="acts">curious<br>looks around · climbs</td>
+      </tr>
+      <tr>
+        <td>❤️</td><td><strong>Perfect pet</strong></td>
+        <td class="looks">healthy</td>
+        <td class="acts">friendly · gentle · loved</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+</main>
+</body>
+</html>
