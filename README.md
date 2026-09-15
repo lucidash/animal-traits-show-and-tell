@@ -1,6 +1,6 @@
 # 🐶🐱 Animal Traits — Show and Tell
 
-영어 유치원 재원생을 위한 **SL2 수준 Show & Tell 발표 자료**입니다. 할머니 댁에 실제로 사는 강아지와 고양이 사진으로 `animal traits`를 설명하고 Essential Question에 답합니다.
+영어 유치원 재원생을 위한 **SL2 수준 Show & Tell 발표 자료**입니다. 할머니 댁에 실제로 사는 강아지 Bomi와 고양이 Hongsi의 사진으로 `animal traits`를 설명하고 Essential Question에 답합니다.
 
 - **Presentation Topic:** Animal Traits
 - **Essential Question:** What is a perfect pet like?
@@ -22,11 +22,11 @@
 | # | 내용 | 핵심 문장 |
 |---|---|---|
 | 1 | Title | What is a perfect pet like? |
-| 2 | 할머니 댁 반려동물 | My grandma has one dog and one cat. |
+| 2 | 할머니 댁 반려동물 | Bomi the dog and Hongsi the cat. |
 | 3 | Trait 뜻 | A trait tells how an animal looks or acts. |
-| 4 | 강아지의 생김새 | White fluffy fur, pointed ears, and a curly tail. |
-| 5 | 강아지의 행동 | Friendly, gentle, playful, and active. |
-| 6 | 고양이의 특성 | Black-and-white fur, bright eyes, and curious. |
+| 4 | Bomi의 생김새 | White fluffy fur, pointed ears, and a curly tail. |
+| 5 | Bomi의 행동 | Friendly, gentle, playful, and active. |
+| 6 | Hongsi의 특성 | Black-and-white fur, bright eyes, and curious. |
 | 7 | 필요한 돌봄 | Food, water, playtime, a clean bed, and love. |
 | 8 | Essential Question 답 | Friendly, gentle, healthy, and loved. |
 | 9 | 마무리 | What is your perfect pet like? |

@@ -8,7 +8,7 @@
 - **Essential Question:** What is a perfect pet like?
 - **대상:** 한국 영유 6~7세, SL2
 - **발표 시간:** 약 2~3분 / 9 슬라이드
-- **개인 맥락:** 발표자의 할머니 댁에 흰 강아지 한 마리와 검정·흰색 고양이 한 마리가 있음
+- **개인 맥락:** 발표자의 할머니 댁에 흰 강아지 Bomi와 검정·흰색 고양이 Hongsi가 있음
 
 ## 구성 원칙
 
@@ -20,11 +20,11 @@
 ## 발표 구조 결정
 
 1. Title
-2. At Grandma’s House — 강아지와 고양이 소개
+2. At Grandma’s House — Bomi와 Hongsi 소개
 3. Trait = how an animal looks or acts
-4. Dog body traits — white fluffy fur / pointed ears / curly tail
-5. Dog behavior traits — friendly / gentle / playful / active
-6. Cat traits — black-and-white fur / bright eyes / curious climber
+4. Bomi’s body traits — white fluffy fur / pointed ears / curly tail
+5. Bomi’s behavior traits — friendly / gentle / playful / active
+6. Hongsi’s traits — black-and-white fur / bright eyes / curious climber
 7. Good care — food / water / playtime / clean bed / love
 8. Essential Question 답 — friendly / gentle / healthy / loved
 9. Thank You + 청중 질문
@@ -33,7 +33,7 @@
 
 - 한 문장은 가능한 한 4~10단어로 짧게 유지합니다.
 - `trait`, `behavior`, `curious`는 주제 핵심 어휘라 사용하되 사진과 쉬운 말로 설명합니다.
-- 강아지와 고양이의 성별·이름은 제공되지 않았으므로 대본에서 `it`을 사용합니다.
+- 강아지 이름은 `Bomi`, 고양이 이름은 `Hongsi`로 표기합니다. 성별은 제공되지 않았으므로 대명사는 `it`을 사용합니다.
 - “완벽한 반려동물”을 특정 동물이나 외모로 단정하지 않고, 좋은 성격·건강·돌봄의 관계로 답합니다.
 
 ## 사진 파일 매핑
